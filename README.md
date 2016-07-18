@@ -8,10 +8,10 @@
  
 2 安装好mysql
 
-3 在mysql中创建数据库Bucketlist, 设置用户名root 密码为空
+3 在mysql中创建数据库deploy, 设置用户名 username 密码 password
 
 4 执行MySQL_Queries目录下sql.txt文件里的建表语句
 
 5 切换到FlaskApp目录下，运行程序: python app.py
 
-6 浏览器打开: http://127.0.0.1
+6 浏览器打开: http://127.0.0.1  (也可以是你的公网IP)

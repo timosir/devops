@@ -269,16 +269,12 @@ def deploy_project():
             return json.dumps({"code":10000, "msg": "项目不存在"})
         
         name = data[0][1]
-        #print project_id, version, "-----deploy_project"
 	try:
-        	process = Popen('sh /home/scripts/choice_programm.sh'+' '+name+' '+version, shell=True, stdout=PIPE, stderr=PIPE)
-		output, error = process.communicate()
-                print "----"
-		print output, "---out----"
-                print error, "---error"
-        	if error:
-           	 	#print "deploy_project failed,please connect administrator ", error 
-	    		return do_response(10000, 'deploy_project failed,please connect administrator')
+        	process = os.system('sh /home/scripts/choice_programm.sh'+' '+name+' '+version)
+                print process
+        	if process!=0:
+                    print "deploy project failed,please connect administrator"
+	            return do_response(10000, 'deploy_project failed,please connect administrator')
         except Exception as e:
 		print e
 		return do_response(10000, str(e))

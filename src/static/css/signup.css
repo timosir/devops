@@ -5,6 +5,10 @@
   padding: 15px;
   margin: 0 auto;
 }
+.deploy-rows>tr>td, .deploy-rows>tr>th{ padding:0!important;}
+@media (min-width: 768px){
+   #container{ max-width:auto!important;}
+}
 .form-signin .form-signin-heading,
 .form-signin .checkbox {
   margin-bottom: 10px;
@@ -47,7 +51,7 @@
 }
 
 td.current {
-	width: 100px;
+	/*width: 100px*/;
 	overflow: hidden;
 	display: inline-block;
 }
