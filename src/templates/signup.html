@@ -1,0 +1,32 @@
+{% extends "root.tpl" %}
+	
+	{% block header_js_files %}
+
+	    <script src="/static/js/signUp.js"> </script>
+
+	{% endblock  %}
+
+ 	{% block css_files %}
+    		<link href="/static/css/signup.css" rel="stylesheet">
+	{% endblock %}
+
+	
+	{% block content %}	
+
+        <div class="jumbotron">
+
+	        <h1>注册账号</h1>
+	        <form class="form-signin">
+		        <label for="inputName" class="sr-only">Name</label>
+		        <input type="name" name="inputName" id="inputName" class="form-control" placeholder="名字" required autofocus>
+		        <label for="inputEmail" class="sr-only">Email address</label>
+		        <input type="email" name="inputEmail" id="inputEmail" class="form-control" placeholder="邮箱" required autofocus>
+		        <label for="inputPassword" class="sr-only">Password</label>
+		        <input type="password" name="inputPassword" id="inputPassword" class="form-control" placeholder="密码" required>
+		         
+		        <button id="btnSignUp" class="btn btn-lg btn-primary btn-block" type="button">注册</button>
+	      	</form>
+		</div>
+		
+
+	{% endblock  %}
