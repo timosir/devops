@@ -2,7 +2,7 @@
 <html lang="en">
  
 <head>
-    <title>代码部署</title>
+    <title>运维平台首页</title>
  
  
     <link href="/static/vendor/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -31,11 +31,9 @@
 					
 					{% if user %}
 						<li role="presentation"><a href="/show_add_project">添加项目</a></li>
-
-						<li role="presentation" class=""><a href="/projects">项目列表</a>
-						</li>
-						<li role="presentation" class=""><a href="/logout">退出</a>
-	                    </li>
+						<li role="presentation" class=""><a href="/projects">项目列表</a></li>
+						<li role="presentation"><a href="/show_delete_project">删除项目</a></li>
+						<li role="presentation" class=""><a href="/logout">退出</a></li>
 					{% else %}
 					  <li role="presentation"><a href="showSignIn">登录</a>
 	                    </li>
@@ -45,7 +43,7 @@
 					
                 </ul>
             </nav>
-            <h3 class="text-muted">代码部署</h3>
+            <h3 class="text-muted">运维平台首页</h3>
         </div>
  
             {% block content %}

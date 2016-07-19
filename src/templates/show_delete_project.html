@@ -1,0 +1,38 @@
+{% extends "root.tpl" %}
+	
+	
+	{% block content %}
+		
+        <section>
+            <form class="form-horizontal" method="post" action="/delete_project">
+                <fieldset>
+ 
+                    <!-- Form Name -->
+                    <legend>删除仓库</legend>
+ 
+                    <!-- Text input-->
+					
+					<div class="form-group">
+                        <label class="col-md-4 control-label" for="txtTitle">项目名</label>
+                        <div class="col-md-4">
+                            <input id="txtTitle" name="inputName" type="text" placeholder="项目标识" class="form-control input-md" required>
+                        </div>
+                    </div>
+					
+ 
+ 
+                    <!-- Button -->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="singlebutton"></label>
+                        <div class="col-md-4">
+                            <input id="singlebutton" name="singlebutton" class="btn btn-primary" type="submit" value="删除" />
+                        </div>
+                    </div>
+ 
+                </fieldset>
+            </form>
+ 
+        </section>
+
+
+	{% endblock  %}

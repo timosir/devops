@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import  sys
 reload(sys)  # Reload does the trick!
@@ -13,11 +14,8 @@ from    flask.ext.mysql import MySQL
 from    werkzeug import generate_password_hash, check_password_hash
 import  git
 
-
-#GIT_BASE_DIR = "/Users/xianpeng/workspace/test"
 GIT_BASE_DIR = "/opt/webapp/base_architect/"
 app = Flask(__name__)
-
 mysql = MySQL()
 
 
@@ -27,7 +25,6 @@ app.config['MYSQL_DATABASE_PASSWORD'] = 'Smm_devops'
 app.config['MYSQL_DATABASE_DB'] = 'deploy'
 app.config['MYSQL_DATABASE_HOST'] = 'localhost'
 mysql.init_app(app)
-
 # set a secret key for the session
 app.secret_key = 'why would I tell you my secret key?'
 
@@ -146,6 +143,11 @@ def logout():
 def showAddWish():
     return custom_render_template('show_add_project.html')
 
+@app.route('/show_delete_project')
+@requires_auth
+def showDeleteWish():
+    return custom_render_template('show_delete_project.html')
+
 @app.route('/add_project',methods=['POST'])
 @requires_auth
 def add_project():
@@ -171,7 +173,7 @@ def add_project():
 
         data = cursor.fetchall()
 
-        if len(data) is 0:
+        if len(data) == 0:
             conn.commit()
             return redirect('/projects')
         else:
@@ -180,6 +182,25 @@ def add_project():
     except Exception as e:
         return custom_render_template('error.html',error = str(e))
 
+@app.route('/delete_project', methods=['POST'])
+@requires_auth
+def delete_project():
+    try:
+	_name = request.form['inputName']
+	conn = mysql.connect()
+	cursor = conn.cursor()
+	cursor.execute("select *  from  project   where name = %s ", (_name,))
+	data = cursor.fetchall()
+	if len(data) == 1:
+		cursor.execute("delete   from  project where name = %s", (_name,))
+                conn.commit()
+		a = os.system("rm -rf %s/%s" %(GIT_BASE_DIR,_name,))
+                return redirect('/projects')
+	else:
+		return custom_render_template('error.html', error='项目不存在!')
+    except Exception as e:
+        print(str(e))
+        return custom_render_template('error.html',error = str(e))
 
 @app.route('/get_project_list')
 @requires_auth
