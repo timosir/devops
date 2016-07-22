@@ -1,5 +1,5 @@
 # MySQL-and-Python
-学习mysql python flask 的一个简单注册登录示例， 代码改自https://github.com/uym2/MySQL-and-Python
+
 
 运行本例子的步骤:
 
