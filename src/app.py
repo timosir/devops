@@ -20,9 +20,9 @@ mysql = MySQL()
 
 
 # MySQL configurations
-app.config['MYSQL_DATABASE_USER'] = 'devops'
-app.config['MYSQL_DATABASE_PASSWORD'] = 'Smm_devops'
-app.config['MYSQL_DATABASE_DB'] = 'deploy'
+app.config['MYSQL_DATABASE_USER'] = 'xxxxx'
+app.config['MYSQL_DATABASE_PASSWORD'] = 'xxxx'
+app.config['MYSQL_DATABASE_DB'] = 'xxxxx'
 app.config['MYSQL_DATABASE_HOST'] = 'localhost'
 mysql.init_app(app)
 # set a secret key for the session
@@ -322,4 +322,4 @@ def deploy_project():
 		
         
 if __name__ == "__main__":
-    app.run(port=80, host="172.16.5.117", debug=True)
+    app.run(port=80, host="xxxxxxxxxxxxx", debug=True)
