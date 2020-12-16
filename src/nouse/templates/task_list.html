@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% block title %}
+<title>发布单列表-荣峰科技</title>
+{% endblock %}
+
+{% block css_files %}
+<link rel="stylesheet" src="../static/css/jquery-ui.min.css"></link>
+<link rel="stylesheet" src="../static/css/chosen.min.css"></link>
+{% endblock %}
+
+{% block header_js_files %}
+<script src="/static/js/jquery-ui.min.js"></script>
+<script src="/static/js/chosen.jquery.min.js"></script>
+{% endblock %}
+
+
+{%block content%}
+<div class="space-4"></div>
+								
+<div class="row">
+	<div class="col-xs-12">
+	
+	<div class="tabbable">
+		<table class="table table-striped table-bordered table-hover">
+			<thead>
+			<tr>
+				<th>序列号</th>
+				<th>项目名称</th>
+				<th>项目负责人</th>
+				<th>编译版本</th>
+				<th>编译时间</th>
+				<th>发布版本</th>
+				<th>发布时间</th>
+				<th>状态</th>
+				<th>操作者</th>
+				<th>版本更新</th>
+				<th>版本编译</th>
+				<th>版本发布</th>
+				<th>版本下载</th>
+			</tr>
+			</thead>
+			<tbody class="deploy-rows" id="bodylist">
+                         
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="10">底部</td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+	</div>
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">编译</h4>
+            </div>
+            <div class="modal-body" style="height:200px;">
+				<select id="projectSelect" class="form-control project-tag " style="width:300px;display:block;"></select>
+			</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" onclick="submitclick(this)" id="submitbtn">提交更改</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<script>
+$(document).ready(function(){
+	fn_get_project_list();
+	$(".btn-success").click(function () {//编译
+		var id = $(this).attr("data-id");
+		var projectname = $(this).parent().parent().find("td.name").html();
+		var options=get_branchList(projectname);
+
+		$("#projectSelect").html(options).css("width","300px");
+		$("#projectSelect").chosen({no_results_text: "没有找到结果！",search_contains:true,});
+		$('.chosen-container-single').css("width","300px");
+		$("#submitbtn").attr("data-project",projectname);
+	});
+
+});
+function submitclick(button){
+		button=$(button);
+		var tags = button.parent().parent().parent().parent().find(".project-tag").val();
+		var projectname = $("#submitbtn").attr("data-project");
+                    if (tags != "") {
+                        $.ajax({
+                            type: "post",
+                            url: "/api/v1/project/compile",
+                            dataType: 'json',
+                            async:false,
+                            data: { "project_name": projectname, "tags": tags },
+                            beforeSend: function (xhr) {
+                                button.attr("disabled",true);
+                                // button.spin();
+                                // dialog.setClosable(false);
+                            },
+                            success: function (updateResult) {
+                                if (updateResult.code == 1000) {
+                                	alert("更新编译成功！")
+                                    window.location.reload();
+                                }
+                                else {
+                                    alert(updateResult.msg);
+                                }
+                            }
+                        });
+                    } else {
+                        alert("请选择要发布的版本！");
+                        return;
+                    }
+	}
+
+</script>
+
+{% endblock %}

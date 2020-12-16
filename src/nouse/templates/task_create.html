@@ -1,0 +1,131 @@
+{% extends "base.html" %} {% block title %}
+<title>新建发布单-荣峰科技</title>
+{% endblock%} {% block content%}
+<div class="breadcrumbs" id="breadcrumbs">
+	<ul class="breadcrumb">
+		<li>
+			<a href="">首页</a>
+		</li>
+		<li class="active">添加项目</li>
+	</ul>
+</div>
+<form action="" method="post" class="form-horizontal ajax-form" autocomplate="off">
+	<div class="form-group">&nbsp;</div>
+	<div class="form-group">&nbsp;</div>
+	<div class="form-group">&nbsp;</div>
+	<div class="form-group">
+		<label for="" class="col-sm-2 control-label">项目名称</label>
+		<div class="col-sm-3">
+			<input name="inputName" id="inputName"  class="form-control" type="text" placeholder="项目标识" required autofocus>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="" class="col-sm-2 control-label">项目地址</label>
+		<div class="col-sm-3">
+			<input name="inputLink" id="inputLink" class="form-control" type="text" placeholder="项目gitlab地址" required autofocus>
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="" class="col-sm-2 control-label">项目负责人</label>
+		<div class="col-sm-3">
+			<input name="inputTitle" id="inputTitle" class="form-control" type="text" placeholder="项目负责人" required autofocus>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="" class="col-sm-2 control-label">发布项</label>
+		<div class="col-sm-3">
+			<textarea name="inputDescription" id="inputDescription" class="form-control" required autofocus></textarea>
+		</div>
+	</div>
+
+	<!--div class="form-group">
+		<label for="server_ip" class="col-sm-2 control-label">项目成员</label>
+		<div class="col-sm-8">
+			<div class="group-user-list" id="product-user">
+				<label class="checkbox-inline"><input type="Checkbox" class="call" data-type="product"> <b>全选（产品）</b></label><br />
+			</div>
+			<div class="group-user-list" id="dev-user">
+				<label class="checkbox-inline "><input type="Checkbox" class="call" data-type="dev"> <b>全选（开发）</b></label><br />
+			</div>
+			<div class="group-user-list" id="test-list">
+				<label class="checkbox-inline "><input type="Checkbox" class="call" data-type="test"> <b>全选（测试）</b></label><br />
+			</div>
+			<div class="group-user-list" id="ops-list">
+				<label class="checkbox-inline "><input type="Checkbox" class="call" data-type="ops"> <b>全选（运维）</b></label><br />
+			</div>
+			<div class="group-user-list" id="leader-list">
+				<label class="checkbox-inline "><input type="Checkbox" class="call" data-type="leader"> <b>全选（开发主管）</b></label><br
+				/>
+			</div>
+		</div>
+	</--div-->
+	<div class="form-group">
+		<label for="description" class="col-sm-2 control-label">&nbsp;</label>
+		<div class="col-sm-4">
+			<button type="button" class="btn project_add btn-info"><i class="ace-icon fa fa-check bigger-110"></i>添 加</button>
+			<a href="/task/list" class="btn btn-info"><i class="ace-icon fa fa-reply bigger-110"></i>取 消</a>
+		</div>
+	</div>
+</form>
+<script>
+var pvid=getQueryString("id");
+
+//fn_get_user_list_project();
+$(document).ready(function(){
+	$(".project_add").click(function(){
+		//$(".project_add").attr("disabled", true);
+		fn_add_project();
+	});
+	$(".call").change(function(){
+		var vtype=$(this).attr("data-type");
+		var objlist=$("input");
+		var vchecked=false;
+
+		if ($(this).is(":checked")){
+			vchecked=true;
+		}
+		for(var i=0;i<objlist.length;i++){
+			if(objlist.eq(i).attr("data-id")==vtype){
+				if(vchecked){
+					objlist.eq(i).prop("checked",true);
+				}else{
+					objlist.eq(i).prop("checked", false);
+				}
+
+			}
+		}
+	});
+	if(pvid!=undefined && pvid!=""){
+		var getpvurl=" ";
+		var rejson={
+			"id":pvid,
+		};
+		var redata = fn_get_ajaxvalue(getpvurl, rejson);
+		if (redata != null) {
+			if (redata.code == 1000) {
+				var lv_info = "";
+				var d=redata.data[0];
+				$("#inputName").val(d.name);
+				$("#inputLink").val(d.link);
+				$("#inputTitle").val(d.title);
+				$("#inputDescription").val(d.description);
+				$("#inputName").attr("disabled","disabled");
+				$("#inputLink").attr("disabled","disabled");
+				var joinid=d.member;
+				if(joinid!=""){
+					joinuserlist=joinid.split(",");
+					for(var i=0;i<joinuserlist.length;i++){
+
+						$("#userlist"+joinuserlist[i]).prop("checked",true);
+					}
+				}
+			}
+			else {
+				alert(redata.msg);
+			}
+		}
+	}
+});
+</script> {% endblock %}

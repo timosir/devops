@@ -1,0 +1,125 @@
+.body {
+    height: 350px;
+    width: 292px;
+    margin-left:0px; 
+    left: 70%;
+    position: relative;
+    top: 15px;
+    background-color: rgba(255,255,255,0.9);
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#E5ffffff,endColorstr=#E5ffffff);
+}
+.first{
+    top: 54px;
+    position: relative;
+}
+
+.captcha_field input {
+    width: 150px;
+    position: absolute;
+    left: 15px;
+    top: 0px;
+    height: 36px;
+    font-size: 14px;
+    outline: none;
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #e1e1e1;
+    padding-left: 45px;
+}
+
+.captcha_field img {
+    position: absolute;
+    left: 195px;
+    top: -5px;
+}
+
+.line .btn{
+    width: 260px;
+    margin-left:15px;
+    padding:7px 12px;
+    font-size:14px;
+}
+.line input {
+    margin-left: 15px;
+    padding-left:40px;
+    line-height: 36px;
+}
+.footer{
+    margin-top: 200px;
+}
+.info{
+    position: relative;
+    margin-bottom: 10px;
+    text-align: right;
+    padding:0 15px 0 0;
+}
+.info .forget_password{
+    position: relative;
+    left: 20px;
+}
+.error{color:#ff0000; text-align: left;padding-left: 15px;}
+.body_header{
+    position: relative;
+    /* color: #ff4200; */
+    font-size: 16px;
+    padding-left: 10px;
+    top: 20px;
+    left: 20px;
+    /* margin-top: 20px; */
+    border-left: 3px solid #ff4200;
+}
+.icon_base{
+    position: absolute;
+    width:16px;
+    height: 19px;
+    left: 30px;
+    top: 8px;
+}
+.user_icon{
+    background: url("../img/data.png");
+}
+.user_icon_active{
+    background: url("../image/auth_file/data_active.png");
+}
+.pass_icon{
+    background: url("../img/account.png");
+}
+.pass_icon_active{
+    background: url("../image/auth_file/account_active.png");
+}
+.captcha_icon{
+    background: url("../image/auth_file/cap.png");
+}
+.captcha_icon_active{
+    background: url("../image/auth_file/cap_active.png");
+}
+.captcha_field {
+    z-index: 1;
+}
+.body-register .captcha_input{
+    left:15px;
+}
+.body-register .captcha_field img{
+    left:180px;
+}
+
+@media ( max-width:768px){
+    .sidebar{
+        display:none;
+    }
+    .navbar-header{
+        display:inline-block;
+    }
+}
+
+#fl .a{
+float:  left;
+	width: 120px;
+	text-align: center;
+
+} 
+
+
+
+

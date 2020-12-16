@@ -1,0 +1,68 @@
+{% extends "base.html" %} {% block title %}
+<title>添加角色-荣峰科技</title>
+{% endblock %} {% block content %}
+<div class="breadcrumbs" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <a href="/index">首页</a>
+        </li>
+        <li class="active">添加角色</li>
+    </ul>
+</div>
+<!--div class="alert alert-warning alert-dismissible hide" role="alert"></div-->
+
+<form action="#" method="POST" class="form-horizontal ajax-form" autocomplate="off">
+    <div class="form-group">&nbsp;</div>
+    <div class="form-group">&nbsp;</div>
+    <div class="form-group">&nbsp;</div>
+    <div class="form-group">
+        <label for="rolename" class="col-sm-2 control-label">角色名</label>
+        <div class="col-sm-3">
+            <input type="text" class="form-control" id="rolename" name="rolename" placeholder="请输入角色名" autofocus>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label for="description" class="col-sm-2 control-label">角色说明</label>
+        <div class="col-sm-4">
+            <textarea name="description" id="description" class="form-control" rows="6"></textarea>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="description" class="col-sm-2 control-label">&nbsp;</label>
+        <div class="col-sm-4">
+            <button type="button" class="btn add_role btn-info"><i class="ace-icon fa fa-check bigger-110"></i>保 存</button>
+            <a href="/role_list" class="btn btn-default"><i class="ace-icon fa fa-reply bigger-110"></i>取 消</a>
+        </div>
+    </div>
+</form>
+<script>
+ var id=getQueryString("id");
+    if(id!=undefined && id!=""){
+        var url="show_role_edit_list";
+        var jsondata={
+            "id":id,
+        };
+         var redata = fn_get_ajaxvalue(url, jsondata);
+        if (redata.code = 1000) {
+           $("#rolename").val(redata.data.role_name);
+           $("#description").val(redata.data.description);
+        }
+        else {
+            alert(data.msg);
+        }
+    }
+$(document).ready(function(){
+    $(".add_role").click(function(){
+        $(".add_role").attr("disabled",true);
+        if(id!=undefined && id!=""){
+            fn_add_rolelist(id);
+        }
+        else{
+            fn_add_rolelist("");
+        }
+    });
+});
+</script> {% endblock %}

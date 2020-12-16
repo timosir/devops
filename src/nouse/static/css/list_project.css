@@ -1,0 +1,37 @@
+
+
+.deploy-rows td {
+	line-height: 50px !important;
+}
+
+.commit-name {
+	font-weight: 800;
+}
+.submenu{ background-color: #f7f7f7; padding-left:0px;}
+.submenu a{color: #666666;}
+.i-right{float:right; margin-right:15px;}
+.c999{color: #999999;}
+.csuccess{color: #87b87f;}
+.cinfo{color: #6fb3e0;}
+.cprimary{color:#428bca; }
+.item-add-result{ padding: 15px 15px;  font-size: 14px;color: #999999; line-height: 22px; border-radius: 4px;}
+.item-add-result li{ padding: 15px 15px 0px 15px; margin: 10px 0px; border-radius: 3px; border: dashed 1px #cccccc;}
+.item-add-result b{color: #ffffff; padding: 5px 15px; border-radius: 3px; margin: 10px 0px; font-weight: normal; background-color: #428bca;}
+
+.role1{ display:inline-block; line-height: 22px; padding: 3px 8px; background-color: #226baa; color: #fff; border-radius: 4px; margin-right: 10px;}
+.role2{ display:inline-block; line-height: 22px; padding: 3px 8px; background-color: #327bba; color: #fff; border-radius: 4px; margin-right: 10px;}
+.role3{ display:inline-block; line-height: 22px; padding: 3px 8px; background-color: #428bca; color: #fff; border-radius: 4px; margin-right: 10px;}
+.role4{ display:inline-block; line-height: 22px; padding: 3px 8px; background-color: #529bda; color: #fff; border-radius: 4px; margin-right: 10px;}
+
+.status0{color:#336600;}
+.status1{color:#669900;}
+.status2{color:#ff9900;}
+.status3{color:#428bca;}
+.status4{color: #999999;}
+
+.bt0,.bt0:focus{background-color:#336600 !important; border-color:#336600;}
+.bt1,.bt1:focus{background-color:#669900 !important; border-color:#669900;}
+.bt2,.bt2:focus{background-color:#ff9900 !important; border-color:#ff9900;}
+.bt3,.bt3:focus{background-color:#428bca !important; border-color:#428bca;}
+.bt4,.bt4:focus{background-color: #999999 !important; border-color:#999999;}
+

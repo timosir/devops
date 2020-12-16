@@ -1,0 +1,110 @@
+{% extends "base.html" %} {% block title %}
+<title>分配权限-荣峰科技</title>
+{% endblock %} {% block content %}
+<div class="breadcrumbs" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <a href="/index">首页</a>
+        </li>
+        <li class="active">分配权限</li>
+    </ul>
+</div>
+<!--div class="alert alert-warning alert-dismissible hide" role="alert"></div-->
+
+<form action="/serveraddnew" method="POST" class="form-horizontal ajax-form" autocomplate="off">
+    <div class="form-group">&nbsp;</div>
+    <div class="form-group">&nbsp;</div>
+    <div class="form-group">&nbsp;</div>
+    <div class="form-group">
+        <label for="server_ip" class="col-sm-2 control-label">角色名</label>
+        <label for="server_ip" class="col-sm-3 control-label" style="text-align:left;"><b>开发人员</b></label>
+    </div>
+
+        <div class="form-group">
+            <label for="description" class="col-sm-2 control-label">访问权限</label>
+            <div class="col-sm-4"><b>发布管理</b>
+                <br>
+                <label class="checkbox-inline">
+                <input type="checkbox" id="inlineCheckbox1" value="option1">新建发布
+            </label>
+                <label class="checkbox-inline">
+                <input type="checkbox" id="inlineCheckbox2" value="option2">发布列表
+            </label>
+                <label class="checkbox-inline">
+                <input type="checkbox" id="inlineCheckbox3" value="option3">删除列表
+            </label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="description" class="col-sm-2 control-label">&nbsp;</label>
+            <div class="col-sm-4"><b>上线管理</b>
+                <br><label class="checkbox-inline">
+                <input type="checkbox" id="inlineCheckbox1" value="option1">开发
+            </label>
+                <label class="checkbox-inline">
+                <input type="checkbox" id="inlineCheckbox2" value="option2">测试
+            </label>
+                <label class="checkbox-inline">
+                <input type="checkbox" id="inlineCheckbox3" value="option3">审批
+            </label>
+                <label class="checkbox-inline">
+                <input type="checkbox" id="inlineCheckbox3" value="option3">运维
+            </label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="description" class="col-sm-2 control-label">&nbsp;</label>
+            <div class="col-sm-4"><b>资产管理</b>
+                <br><label class="checkbox-inline">
+                <input type="checkbox" id="inlineCheckbox1" value="option1">添加服务器
+            </label>
+                <label class="checkbox-inline">
+                <input type="checkbox" id="inlineCheckbox2" value="option2">服务器详情
+            </label>
+                <label class="checkbox-inline">
+                <input type="checkbox" id="inlineCheckbox3" value="option3">删除
+            </label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="description" class="col-sm-2 control-label">&nbsp;</label>
+            <div class="col-sm-4"><b>用户管理</b>
+                <br><label class="checkbox-inline">
+                <input type="checkbox" id="inlineCheckbox1" value="option1">添加
+            </label>
+                <label class="checkbox-inline">
+                <input type="checkbox" id="inlineCheckbox2" value="option2">删除
+            </label>
+                <label class="checkbox-inline">
+                <input type="checkbox" id="inlineCheckbox3" value="option3">修改
+            </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="description" class="col-sm-2 control-label">&nbsp;</label>
+            <div class="col-sm-4"><b>角色管理</b>
+                <br><label class="checkbox-inline">
+                <input type="checkbox" id="inlineCheckbox1" value="option1">添加
+            </label>
+                <label class="checkbox-inline">
+                <input type="checkbox" id="inlineCheckbox2" value="option2">删除
+            </label>
+                <label class="checkbox-inline">
+                <input type="checkbox" id="inlineCheckbox3" value="option3">修改
+            </label>
+            </div>
+        </div>
+
+    <div class="form-group">
+        <label for="description" class="col-sm-2 control-label">&nbsp;</label>
+        <div class="col-sm-4">
+            <button type="submit" class="btn btn-info"><i class="ace-icon fa fa-check bigger-110"></i>保 存</button>
+            <a href="/role_list" class="btn btn-default"><i class="ace-icon fa fa-reply bigger-110"></i>取 消</a>
+        </div>
+    </div>
+</form>
+</form>
+{% endblock %}

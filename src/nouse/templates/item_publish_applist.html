@@ -1,0 +1,125 @@
+{% extends "base.html" %} {% block content %}
+<div class="breadcrumbs" id="breadcrumbs">
+	<script type="text/javascript">
+                        try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+                      </script>
+	<ul class="breadcrumb mbxdh">
+		<li>
+			<a href="/index">首页</a>
+		</li>
+		<li>
+			<a href="/publish/applist">发布列表</a>
+		</li>
+	</ul>
+</div>
+<div class="space-4"></div>
+<div class="row ">
+	<div class="col-xs-12">
+		<a href="/publish/appadd" class="btn btn-info"><i class="fa fa-plus"></i> 上线申请</a>
+	</div>
+</div>
+
+<div class="space-4"></div>
+
+<div class="row">
+	<div class="col-xs-12">
+		<table class="table table-striped table-bordered table-hover" id="datalist">
+			<thead>
+				<tr>
+					<th>项目名称</th>
+					<th>当前版本号</th>
+					<th>应用名称</th>
+					<th>上线时间</th>
+					<th>操作人</th>
+					<th>状态</th>
+
+				</tr>
+			</thead>
+			<tbody id="bodylist">
+
+			</tbody>
+		</table>
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-12"></div>
+</div>
+<script>
+	var status=getQueryString("status");
+	if(status==undefined || status==""){
+		status="";
+	}else{
+		$(".mbxdh").append("<li class=\"active\">状态："+ fn_get_status_name(status)+"</li>");
+	}
+	var projectname=getQueryString("projectname");
+	if(projectname==undefined || projectname==""){
+		projectname="";
+	}else{
+		$(".mbxdh").append("<li class=\"active\">项目名称："+ projectname+"</li>");
+	}
+	var devertag=decodeURIComponent(getQueryString("devertag"));
+	if(devertag==undefined || devertag==""){
+		devertag="";
+	}else{
+		$(".mbxdh").append("<li class=\"active\">当前版本号："+ devertag+"</li>");
+	}
+	var dever=decodeURIComponent(getQueryString("dever"));
+	if(dever==undefined || dever==""){
+		dever="";
+	}else{
+		$(".mbxdh").append("<li class=\"active\">提测者："+ dever+"</li>");
+	}
+	var devertime=decodeURIComponent(getQueryString("devertime"));
+	if(devertime==undefined || devertime==""){
+		devertime="";
+	}else{
+		$(".mbxdh").append("<li class=\"active\">提测时间："+ devertime+"</li>");
+	}
+	var tester=decodeURIComponent(getQueryString("tester"));
+	if(tester==undefined || tester==""){
+		tester="";
+	}else{
+		$(".mbxdh").append("<li class=\"active\">测试："+ tester+"</li>");
+	}
+	var leader=decodeURIComponent(getQueryString("leader"));
+	if(leader==undefined || leader==""){
+		leader="";
+	}else{
+		$(".mbxdh").append("<li class=\"active\">审批："+ leader+"</li>");
+	}
+	var opser=decodeURIComponent(getQueryString("opser"));
+	if(opser==undefined || opser==""){
+		opser="";
+	}else{
+		$(".mbxdh").append("<li class=\"active\">上线："+ opser+"</li>");
+	}
+	var opsertime=decodeURIComponent(getQueryString("opsertime"));
+	if(opsertime==undefined || opsertime==""){
+		opsertime="";
+	}else{
+		$(".mbxdh").append("<li class=\"active\">上线："+ opsertime+"</li>");
+	}
+        $(document).ready(function(){
+			fn_get_publishapplist(status,projectname,devertag,dever,devertime,tester,leader,opser,opsertime);//获取所有数据
+            $(".btn-sm").click(function(){
+                var id=$(this).attr("data-id");
+                var step=$(this).attr("data-step");
+                if(id!=undefined && step!=undefined){
+                    location.href="/item_publish_passed?id="+id+"&step="+step;
+                }
+            });
+            $('#datalist').DataTable({
+				"paging":true,
+                "bLengthChange": true,
+                "bFilter": true,
+                "sPaginationType": "full_numbers",
+                "bSort":false,
+				"scrollX": false,
+                "iDisplayLength": 15,
+				"aLengthMenu" : [ [ 15, 25, 50, -1 ], [ "15", "25", "50", "所有" ] ],
+                "bAutoWidth": false,
+                "bPaginate":false,
+                "bInfo":false,
+            });
+        });
+        </script> {% endblock %}

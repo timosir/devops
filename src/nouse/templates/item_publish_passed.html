@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% block title %}
+<title>上线申请审批-荣峰科技</title>
+
+{% endblock%}
+{% block css_files %}
+<link href="http://g.alicdn.com/sj/qnui/1.5.1/css/sui.min.css" rel="stylesheet">
+<link href="http://g.alicdn.com/sj/qnui/1.5.1/css/sui-append.min.css" rel="stylesheet">
+<script src="http://g.alicdn.com/sj/qnui/1.5.1/js/sui.min.js"></script>
+{% endblock %}
+{% block content%}
+<div class="breadcrumbs" id="breadcrumbs">
+                      <script type="text/javascript">
+                        try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+                      </script>
+                      <ul class="breadcrumb">
+                        <li>
+                          <a href="/index">首页</a>
+                        </li>
+						<li>
+                          <a href="/publish/list">发布列表</a>
+                        </li>
+                        <li class="active">上线申请</li>
+                      </ul>
+                  </div>
+<div class="sui-steps steps-auto">
+  <div class="wrap">
+    <div class="finished">
+      <label><span class="round">1</span><span>第一步 提交上线申请</span></label><i class="triangle-right-bg"></i><i class="triangle-right"></i>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="current">
+      <label><span class="round"><i class="sui-icon icon-pc-right"></i></span><span>第二步 测试确认</span></label><i class="triangle-right-bg"></i><i class="triangle-right"></i>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="todo">
+      <label><span class="round">3</span><span>第三步 主管审核</span></label><i class="triangle-right-bg"></i><i class="triangle-right"></i>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="todo">
+      <label><span class="round">4</span><span>第四步 上线完成</span></label>
+    </div>
+  </div>
+</div>
+<form action="/add_project" method="post" class="smm-create-form" autocomplate="off">
+<div class="item-add">
+	<div class="item-add-result">
+	<ul>
+		<li>
+			<b>项目名称</b><br><p></p>
+		</li>
+		<li>
+			<b>版本号</b><br><p></p>
+		</li>
+		<li>
+			<b>上线内容</b><br><p>一、本次上线更新的内容：<br>
+
+<br>
+
+
+二、本次上线的流程：<br>
+
+<br>
+
+
+三、本次上线DB操作：<br>
+无<br>
+
+
+
+四、本次上线配置文件新增或者修改：<br>
+无<br>
+
+五、本次上线的tag版本号：<br>
+<br><br><br><br><br></p>
+		</li>
+		
+		</ul>
+		</div>
+		<ul class="smm-create-ul">
+			<li>
+			<label for="">上线版本号</label><select id="s_tag"><option value="">请选择要上线的版本</option></select>
+		</li>
+		<li>
+			<label for="">测试结果</label>
+			<textarea name="inputDescription" id="inputDescription" required autofocus></textarea>
+		</li>
+                <li>
+	             <input type="submit" value="通过" class="btn btn-info" style="width:150px;">
+				  <input type="submit" value="不通过" class="btn btn-warning" style="width:150px;">
+                 </li>
+	</ul>
+</div>
+</form>
+<script>
+
+</script>
+{% endblock %}

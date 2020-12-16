@@ -1,0 +1,52 @@
+{% extends "base.html" %} {% block title %}
+<title>删除项目-荣峰科技</title>
+{% endblock %} {% block content%}
+<div class="breadcrumbs" id="breadcrumbs">
+  <script type="text/javascript">
+                        try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+                      </script>
+  <ul class="breadcrumb">
+    <li>
+      <a href="/index">首页</a>
+    </li>
+    <li>
+      <a href="/task_list">发布管理</a>
+    </li>
+    <li class="active">重启服务</li>
+  </ul>
+</div>
+<form action="#" method="POST" class="smm-create-form" autocomplate="off">
+	<ul class="smm-create-ul">
+		<li>
+			<label for="">服务名称</label>
+			<input name="inputName" id="inputName" type="text" placeholder="服务名称" required autofocus>
+		</li>
+		<li>
+			<input type="button" value="确认" class="btn btn-info">
+		</li>
+	</ul>
+</form>
+<script>
+$(document).ready(function(){
+	$(".btn-info").click(function(){
+		var apurl="api/v1/publish/restart";
+		var name = $("#inputName").val();
+		if(name != "" && confirm("您确认要重启" + name + "项目吗？")){
+			var jsondata = {"name": name};
+			var redata = fn_get_ajaxvalue(apurl, jsondata);
+			if (redata != null) {
+				if (redata.code == 1000) {
+					alert("项目重启成功！");
+					location.href="/publish/list";
+				}
+				else{
+					alert(redata.msg);
+				}
+			}
+			else {
+				alert(redata.msg);
+			}
+		}
+	});
+});
+</script> {% endblock %}

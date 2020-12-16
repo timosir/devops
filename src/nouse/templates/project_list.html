@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+        <div class="space-4"></div>
+		<div class="row ">
+			<div class="col-xs-12">
+			<a href="" class="btn btn-sm btn-default"><i class="fa fa-plus"></i> 添加项目</a>
+			</div>
+		</div>
+
+		<div class="space-4"></div>
+
+		<div class="row">
+			<div class="col-xs-12">
+				<table class="table table-striped table-bordered table-hover">
+					<thead>
+					<tr>
+						<th>ID</th>
+						<th>项目名称</th>
+						<th>项目标识</th>
+						<th>仓库地址</th>
+						<th>最后发布版本</th>
+						<th>状态</th>
+						<th>操作</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="center">231</td>
+							<td>项目</td>
+							<td>213</td>
+							<td>213213</td>
+							<td>234234</td>
+							<td class="clone_status" id="" data-status="" data-id="">
+							<span class="text-success bigger-110 green">已克隆</span>
+							<span class="text-warning bigger-110 orange">失败</span>，<a href="">重新克隆</a>
+							</td>
+							<td>
+							<a href="">发布环境</a> | 
+							<a href="">修改项目</a> |
+							<a href="" class="delete_confirm">删除项目</a>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="20">暂无记录...</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-12"></div>
+		</div>
+
+
+{% endblock %}

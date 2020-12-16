@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+    <head>
+    {% block head %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href=".">
+    {% block title %}
+    <title>运维平台</title>
+    {% endblock %}
+      <!-- Bootstrap core CSS -->
+     <link href="../static/css/ace.min.css" rel="stylesheet">
+     <link href="../static/vendor/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+     <link href="../static/css/bootstrap-dialog.min.css" rel="stylesheet" />
+     <link href="../static/css/bootstrap-select.min.css" rel="stylesheet" />
+     
+     <link href="../static/css/signup.css" rel="stylesheet" />
+     <link href="../static/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+        <link href="../static/css/chosen.min.css" rel="stylesheet" />
+
+    <link href="../static/css/list_project.css" rel="stylesheet"/>
+    <script src="../static/js/jquery-1.12.2.js"></script>
+        <script src="../static/js/chosen.jquery.min.js"></script>
+
+    <script src="../static/js/bootstrap.min.js"></script>
+    <script src="../static/js/bootstrap-dialog.min.js"></script>
+    <script src="../static/js/bootstrap-select.min.js"></script>
+    <script src="../static/js/index.js"></script>
+    <script src="/static/js/funajax.js"></script>
+    <link href="../static/css/jquery.dataTables.css" rel="stylesheet">
+    <script src="../static/js/jquery.dataTables.min.js"></script>
+    <script src="../static/js/echarts.min.js"></script>
+
+    {% block css_files %}
+    {% endblock %}
+
+    {% block header_js_files %}
+    {% endblock %}
+    
+     <style type="text/css">
+      html, body{ width:100%; height:100%; }
+      body{ background:#fff; }
+      .type-primary{margin-top:50px !important;}
+    </style>
+    {% endblock %}
+
+    <link rel="stylesheet" href="../static/kindeditor/themes/default/default.css" />
+    <script charset="utf-8" src="../static/kindeditor/kindeditor.js"></script>
+    <script charset="utf-8" src="../static/kindeditor/lang/zh_CN.js"></script>
+    <script charset="utf-8" src="../static/kindeditor/plugins/code/prettify.js"></script>
+  </head>
+
+  <body>
+
+
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid smm-hd">
+          <div class="navbar-header">
+             <a class="navbar-brand" href="/index">&nbsp;运维自动化平台</a>
+          </div>
+          <div id="navbar" class="navbar-collapse">
+              <div class="hd_navbar">
+              	 <i class="glyphicon glyphicon-user"></i><span class="name">{{Username}}</span><i class="glyphicon glyphicon-chevron-down"></i>
+              </div>
+
+              <ul class="hd_navbar_ul">
+                <li><a href=""><i class=""></i>个人信息</a></li>
+                <li><a href="/logout"><i class=""></i>退出登录</a></li>
+              </ul>
+           </div>
+      </div>
+  </nav>
+
+  <div class="container-fluid smm-body">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav-sidebar">
+                <li class="open">
+                   <a href="/index">
+                  <span class="menu-text"><i class="glyphicon glyphicon-list"></i> 项目管理</span>
+                   <b class="arrow fa fa-angle-down"></b>
+                   </a>
+                    <b class="arrow"></b>
+                   <ul class="submenu">
+                      
+                       <li><a href="/task/list">
+                        <i class="glyphicon glyphicon-chevron-right"></i>
+                        项目列表</a></li>
+                         <b class="arrow"></b>
+                          <li><a href="/task/create">
+                        <i class="glyphicon glyphicon-chevron-right"></i>
+                         新建项目</a></li>
+                         <b class="arrow"></b>
+                       <li><a href="/task/delete">
+                        <i class="glyphicon glyphicon-chevron-right"></i>
+                         删除项目</a></li>
+                         <b class="arrow"></b>
+                   </ul>
+                </li>
+                <li class="open">
+                   <a href="/index">
+                  <span class="menu-text"><i class="glyphicon glyphicon-cloud-upload"></i> web发布管理</span>
+                   <b class="arrow fa fa-angle-down"></b>
+                   </a>
+                    <b class="arrow"></b>
+                   <ul class="submenu">
+                      
+                       <li><a href="/publish/list">
+                        <i class="glyphicon glyphicon-chevron-right"></i>
+                        发布列表</a></li>
+                         <b class="arrow"></b>
+                          <li><a href="/publish/add">
+                        <i class="glyphicon glyphicon-chevron-right"></i>
+                         上线申请</a></li>
+                         <b class="arrow"></b>
+                        <li><a href="/publish/restart">
+                        <i class="glyphicon glyphicon-chevron-right"></i>
+                         重启服务</a></li>
+                         <b class="arrow"></b>
+
+                   </ul>
+                </li>
+                       <li class="open">
+                   <a href="/index">
+                  <span class="menu-text"><i class="glyphicon glyphicon-cloud-upload"></i> app发布管理</span>
+                   <b class="arrow fa fa-angle-down"></b>
+                   </a>
+                    <b class="arrow"></b>
+                   <ul class="submenu">
+
+                       <li><a href="/publish/applist">
+                        <i class="glyphicon glyphicon-chevron-right"></i>
+                        发布列表</a></li>
+
+
+                   </ul>
+                </li>
+
+                <li role="presentation" class="">
+                   <a href="/index"><i class="glyphicon glyphicon-cog"></i>
+                    <span class="menu-text">系统管理</span>
+                     <b class="arrow fa fa-angle-down"></b>
+                    </a>
+                    <b class="arrow"></b>
+                   <ul class="submenu">
+                        <li><a href="/user/list">
+                       <i class="glyphicon glyphicon-chevron-right"></i>
+                       用户管理</a>
+                        <b class="arrow"></b>
+                      </li>
+                       <li><a href="/role/list">
+                       <i class="glyphicon glyphicon-chevron-right"></i>
+                       角色管理</a>
+                        <b class="arrow"></b>
+                         </li>
+                        <b class="arrow"></b>
+                      </li>
+                       <li><a href="/permission/list">
+                       <i class="glyphicon glyphicon-chevron-right"></i>
+                       权限管理</a>
+                        <b class="arrow"></b>
+                         </li>
+                        <b class="arrow"></b>
+                      <!--/li>
+                       <li><a href="/permission/add">
+                       <i class="glyphicon glyphicon-chevron-right"></i>
+                       用户权限管理</a>
+                        <b class="arrow"></b>
+                         </li-->
+                   </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="col-sm-9 col-md-10 main">
+            <div class="tabbox">
+               <!--tab01-->
+              <div id="tab01" style="display:block;">
+
+   {% block content %}
+  {{Username}}
+  {% endblock %}
+
+        <footer class="footer">
+         <!--p> @rental2019</p-->
+        		</footer>
+</div>
+  </div>
+         </div>
+       </div>
+  </div>
+   {% block footer_js_files %}
+   {% endblock %}
+
+</body>
+
+</html>
+
+

@@ -1,0 +1,251 @@
+.body_info{
+    margin-bottom: 40px;
+}
+.body_info span {
+    color:#323232;
+}
+.body .line{
+    margin-bottom: 26px;
+}
+.body-1-submit{
+   position: absolute;
+   top: 50px;
+
+}
+.get_cellphone_captcha{
+    position: absolute;
+    background: #efeff4;
+    color: #909090;
+    left: 425px;
+}
+
+/*email field*/
+
+.field{
+    position: absolute;
+    top: 200px;
+    width: 600px;
+    height: 500px;
+    left: 50%;
+    margin-left: -300px;
+    z-index: 2;
+}
+.email-modal-content{
+    position: relative;
+}
+.email-line{
+    font-size: 16px;
+    position: relative;
+    width: 350px;
+    left: 50%;
+    margin-left: -180px;
+    margin-bottom: 20px;
+}
+.email-line p {
+    text-align: left;
+     font-weight: bold;
+}
+.email-modal-content-email{
+    color: red;
+    font-size: 14px;
+    margin-left: 10px;
+}
+.email-modal-content-info{
+    font-size: 14px;
+    color:#969696;
+}
+.goto_email_server{
+    margin-right: 20px;
+}
+.not-receive{
+    position: relative;
+    top: 20px;
+    font-size: 14px;
+}
+.forget_password_info{
+    position: absolute;
+    width: 200px;
+    left: 425px;
+    top: 10px;
+    color:#5a99e0;
+}
+
+
+/*额外样式*/
+.panel-default>.panel-heading {
+    background-color: #fcfcfc;
+    padding: 0;
+}
+.panel-heading .title {
+    position: relative;
+    height: 48px;
+}
+.panel-heading .title .t1 {
+    background: #ff4200;
+    top: 11px;
+    position: absolute;
+    left: 0;
+    width: 6px;
+    height: 24px;
+}
+ .title h2 {
+    position: absolute;
+    left: 20px;
+    min-width: 100px;
+    top: -5px;
+    font-size: 16px;
+}
+.email-modal-content{
+    padding:50px;
+}
+.submit_btn {
+    background: #5a99e0;
+    color: white;
+    width: 120px;
+    height: 36px;
+    margin-top: 30px;
+}
+
+/* captcha */
+.captcha{
+    height: 42px;
+    width:260px;
+    background: url(../image/auth_file/captcha.png);
+    position: relative;
+    left:155px;
+}
+.captcha_active{
+    background: url(../image/auth_file/captcha_success.png) !important;
+}
+
+/*.captcha  slide*/
+.slide{
+    width: 37px;
+    height: 37px;
+    margin: 2px;
+    background: url(../image/auth_file/slide.png);
+    position: absolute;
+    cursor: pointer;
+    z-index: 1;
+}
+.slide_active{
+      background: url(../image/auth_file/slide_success.png) !important;
+}
+
+.captcha_text{
+    position: absolute;
+    left: 90px;
+    top: 10px;
+    color: #cbcbcb;
+}
+
+/*second*/
+.xieyi{
+    position: absolute;
+    left: 155px;
+    width: 20px !important;
+}
+.xieyi_text{
+    position: absolute;
+    left: 180px;
+    top: 62px;
+    width: 300px;
+}
+
+
+/*cellphone captcha*/
+.cellphone-captcha-line{
+    margin-top: 50px;
+    position: relative;
+}
+.cellphone-captcha-line label{
+    position: absolute;
+    left: 70px;
+    color: #969696;
+    top: 10px;
+    font-size: 14px;
+    font-weight: 200;
+}
+.cellphone-captcha-line input{
+    position: absolute;
+    left: 160px;
+    width: 180px;
+    height: 36px;
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #e1e1e1;
+    font-size: 14px;
+    outline: none;
+    padding-left: 20px;
+}
+.cellphone-captcha-line .get_cellphone_captcha{
+    left: 355px;
+}
+
+/*success*/
+.success-field{
+    position: relative;
+    background-color: #fff;
+    -webkit-box-shadow:0 0 10px rgba(118, 119, 119, 0.5); 
+    -moz-box-shadow:0 0 10px rgba(118, 119, 119, 0.5) ;
+    box-shadow:0 0 10px rgba(118, 119, 119, 0.5) ;
+    height: 350px;
+    
+}
+.success-field .success{
+    position: relative;
+    top: 100px;
+    left: 50%;
+    width: 260px;
+    margin-left: -120px;
+    font-size: 16px;
+}
+.success .success-image{
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    left: -30px;
+    top: 2px;
+    background: url(../image/auth_file/lvguo.png)
+}
+.success-line{
+    margin-top: 150px;
+    margin-left: -80px;
+    width: 100px;
+    position: absolute;
+    left: 50%;
+}
+.captcha_field {
+    position: relative;
+    height:40px;
+} 
+.captcha_field label{
+    width: 140px;
+    text-align: right;
+    font-size: 14px;
+    color: #323232;
+    float: left;
+    margin-top: 8px;
+    margin-right: 15px;
+}
+.captcha_field input{
+    width: 150px;
+    position: absolute;
+    left: 155px;
+    top: 0px;
+
+    height: 36px;
+    font-size: 14px;
+    outline: none;
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #e1e1e1;
+    padding-left: 20px;
+}
+.captcha_field img{
+    position: absolute;
+    left: 330px;
+    top: -5px;
+}

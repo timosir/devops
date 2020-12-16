@@ -1,0 +1,82 @@
+{% extends "base.html" %} {% block title %}
+<title>上线申请审批-荣峰科技</title>
+
+{% endblock%} {% block css_files %}
+<link href="http://g.alicdn.com/sj/qnui/1.5.1/css/sui.min.css" rel="stylesheet">
+<link href="http://g.alicdn.com/sj/qnui/1.5.1/css/sui-append.min.css" rel="stylesheet">
+<script src="http://g.alicdn.com/sj/qnui/1.5.1/js/sui.min.js"></script> {% endblock %} {% block content%}
+<div class="breadcrumbs" id="breadcrumbs">
+  <script type="text/javascript">
+                        try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+                      </script>
+  <ul class="breadcrumb">
+    <li>
+      <a href="/index">首页</a>
+    </li>
+    <li>
+      <a href="/publish/list">发布列表</a>
+    </li>
+    <li class="active">上线</li>
+  </ul>
+</div>
+<div class="sui-steps steps-auto">
+  <div class="wrap">
+    <div class="finished">
+      <label><span class="round"><i class="sui-icon icon-pc-right"></i></span><span>第一步 提交上线申请</span></label><i class="triangle-right-bg"></i>
+      <i class="triangle-right"></i>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="current" id="num1">
+      <label><span class="round" id="data1"><i class="sui-icon icon-pc-right"></i></span><span>第二步 测试确认</span></label>
+      <i class="triangle-right-bg"></i><i class="triangle-right"></i>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="todo" id="num2">
+      <label><span class="round" id="data2">3</span><span>第三步 主管审核</span></label><i class="triangle-right-bg"></i><i class="triangle-right"></i>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="todo" id="num3">
+      <label><span class="round" id="data3">4</span><span>第四步 上线完成</span></label>
+    </div>
+  </div>
+</div>
+<form action="#" method="post" class="smm-create-form" autocomplate="off">
+  <div class="item-add">
+    <div class="item-add-result">
+      <ul id="projectbody">
+
+      </ul>
+    </div>
+  </div>
+</form>
+<script>
+  var pvid=getQueryString("id");
+  var status=getQueryString("status");
+  if(pvid==undefined || status==undefined || pvid=="" || status==""){
+    location.href="/item_publish_list";
+  }
+  $(document).ready(function(){
+    status=parseInt(status);
+    var vpurl="show_publish_production";
+    for(var i=1;i<4;i++){
+      if(i==status){
+        $("#num"+i).attr("class","current");
+        $("#data"+i).html(i+1);
+      }else if(i< status)
+      {
+         $("#num"+i).attr("class","finished");
+          $("#data"+i).html("<i class=\"sui-icon icon-pc-right\"></i>");
+      }
+      else{
+        $("#num"+i).attr("class","todo");
+        $("#data"+i).html(i+1);
+      }
+    }
+      fn_bind_publish();
+  });
+
+  
+</script> {% endblock %}

@@ -1,0 +1,266 @@
+{% extends "base.html" %}  {% block css_files%}
+<link href="../static/css/ace.min.css" rel="stylesheet"> {% endblock %} {% block content %}
+
+<div class="row rental-index">
+    <div class="space-6"></div>
+
+    <div class="col-sm-12 infobox-container">
+
+        <div class="infobox infobox-pink">
+            <div class="infobox-icon">
+                <i class="ace-icon fa fa-bar-chart-o"></i>
+            </div>
+            <div class="infobox-data">
+                <span class="infobox-data-number">{{DockerImages}}</span>
+                <div class="infobox-content">个Docker镜像</div>
+            </div>
+        </div>
+
+        <div class="infobox infobox-green">
+            <div class="infobox-icon">
+                <i class="ace-icon fa fa-globe"></i>
+            </div>
+            <div class="infobox-data">
+                <span class="infobox-data-number">{{ProjectNum}}</span>
+                <div class="infobox-content">个项目</div>
+            </div>
+        </div>
+
+
+        <div class="infobox infobox-blue">
+            <div class="infobox-icon">
+                <i class="ace-icon fa fa-bar-chart-o"></i>
+            </div>
+            <div class="infobox-data">
+                <span class="infobox-data-number">{{Deploys}}</span>
+                <div class="infobox-content">次发布</div>
+            </div>
+        </div>
+
+        <div class="infobox infobox-red">
+            <div class="infobox-icon">
+                <i class="ace-icon fa fa-users"></i>
+            </div>
+            <div class="infobox-data">
+                <span class="infobox-data-number">{{CurrentUser}}</span>
+                <div class="infobox-content">位用户</div>
+            </div>
+        </div>
+
+        <div class="infobox infobox-pink">
+            <div class="infobox-icon">
+                <i class="ace-icon fa fa-desktop"></i>
+            </div>
+            <div class="infobox-data">
+                <span class="infobox-data-number">{{ServerNum}}</span>
+                <div class="infobox-content">台服务器</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="hr"></div>
+<div class="row">
+    <div class="col-xs-6">
+        <div class="widget-box transparent">
+            <div class="widget-header widget-header-flat">
+                <h4 class="widget-title lighter">
+                    <i class="ace-icon fa fa-signal orange"></i> 发版统计
+                </h4>
+                <div class="widget-toolbar no-border">最近30天提测次数统计</div>
+            </div>
+            <div class="widget-body">
+                <div class="widget-main padding-4">
+                    <div id="chart-sale" style="height:200px; width:100%;"></div>
+                </div>
+                <!-- /.widget-main -->
+            </div>
+            <!-- /.widget-body -->
+        </div>
+        <!-- /.widget-box -->
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-xs-6">
+            <div class="widget-box transparent">
+                <div class="widget-header widget-header-flat">
+                    <h4 class="widget-title lighter">
+                        <i class="ace-icon fa fa-star orange"></i> 活跃项目
+                    </h4>
+                </div>
+
+                <div class="widget-body">
+                    <div class="widget-main no-padding">
+                        <table class="table table-bordered table-striped">
+                            <thead class="thin-border-bottom">
+                                <tr>
+                                    <th>
+                                        <i class="ace-icon fa fa-caret-right blue"></i>项目
+                                    </th>
+
+                                    <th>
+                                        <i class="ace-icon fa fa-caret-right blue"></i>发版总数
+                                    </th>
+
+                                    <th class="hidden-480">
+                                        <i class="ace-icon fa fa-caret-right blue"></i>当前版本
+                                    </th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                {% for list in serverhotlist %}
+                                <tr>
+                                    <td>{{list[0]}}</td>
+                                    <td>{{list[1]}}</td>
+                                    <td>{{list[2]}}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.widget-main -->
+                </div>
+                <!-- /.widget-body -->
+            </div>
+        </div>
+    </div>
+
+
+    <div class="hr hr32 hr-dotted"></div>
+    <div class="row">
+
+        <div class="col-xs-6">
+            <div class="widget-box transparent">
+                <div class="widget-header widget-header-flat">
+                    <h4 class="widget-title lighter">
+                        <i class="ace-icon fa fa-rss orange"></i> 最新动态
+                    </h4>
+                </div>
+                <div class="widget-body">
+                    <div class="widget-main no-padding">
+                        {% for list in userinfo %}
+                        <div class="profile-activity clearfix">
+                            {{list[2]}},
+                            <B>{{list[0]}}</B> 登录系统, ip为
+                            <B>{{list[1]}}</B>.
+                        </div>
+                        {%endfor%}
+                    </div>
+                    <!-- /.widget-main -->
+                </div>
+                <!-- /.widget-body -->
+            </div>
+        </div>
+
+
+
+
+        <div class="col-xs-6">
+            <div class="widget-box transparent">
+                <div class="widget-header widget-header-flat">
+                    <h4 class="widget-title lighter">
+                        <i class="ace-icon fa fa-info-circle orange"></i> 系统信息
+                    </h4>
+                </div>
+
+                <div class="widget-body">
+                    <div class="widget-main no-padding">
+                        <ul class="item-list">
+                            <li class="item-orange">
+                                程序版本：{{PyVersion}}
+                            </li>
+
+                            <li class="item-red clearfix">
+                                主机名称：{{HostName}}
+                            </li>
+
+                            <li class="item-default clearfix ui-sortable-handle">
+                                数据库版本：{{DbVersion}}
+                            </li>
+
+                            <li class="item-blue clearfix ui-sortable-handle">
+                                Java版本：{{JavaVersion}}
+                            </li>
+
+                            <li class="item-grey clearfix ui-sortable-handle">
+                                Docker版本：{{DockerVersion}}
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- /.widget-main -->
+                </div>
+                <!-- /.widget-body -->
+            </div>
+        </div>
+    </div>
+<script>
+$(document).ready(function(){
+    fn_get_charts(1);
+});
+
+function fn_get_charts(month){
+    var pvurl="api/v1/show_item_publish_dever_count";
+    var rejson={
+        "month":month,
+    };
+    var redata = fn_get_ajaxvalue(pvurl, rejson);
+    if (redata != null) {
+        if (redata.code == "1000") {
+            var chartdata=new Array();
+            var chartdever=new Array();
+            for (i = 0; i < redata.data.length; i++) {
+                chartdever.push(redata.data[i].dever);
+                chartdata.push(redata.data[i].dcount);
+            }
+
+
+            var option = {
+                color: ['#3398DB'],
+                tooltip : {
+                    trigger: 'axis',
+                    axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                        type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                    }
+                },
+                grid: {
+                    left: '1%',
+                    right: '4%',
+                    bottom: '1%',
+                    top:'3%',
+                    containLabel: true
+                },
+                xAxis : [
+                    {
+                        type : 'category',
+                        data :chartdever,
+                        axisTick: {
+                            alignWithLabel: true
+                        }
+                    }
+                ],
+                yAxis : [
+                    {
+                        type : 'value'
+                    }
+                ],
+                series : [
+                    {
+                        name:'发布次数',
+                        type:'bar',
+                        barWidth: '60%',
+                        data:chartdata
+                    }
+                ]
+            };
+            var myChart=echarts.init(document.getElementById("chart-sale"));
+            myChart.setOption(option);
+        }
+    }
+}
+</script>{% endblock %}

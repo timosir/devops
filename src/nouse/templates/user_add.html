@@ -1,0 +1,108 @@
+{% extends "base.html" %} {% block title %}
+<title>添加用户-荣峰科技</title>
+{% endblock %} {% block content %}
+<div class="breadcrumbs" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <a href="/index">首页</a>
+        </li>
+        <li class="active">添加用户</li>
+    </ul>
+</div>
+<!--div class="alert alert-warning alert-dismissible hide" role="alert"></div-->
+
+<form action="/serveraddnew" method="POST" class="form-horizontal ajax-form" autocomplate="off">
+    <div class="form-group">&nbsp;</div>
+    <div class="form-group">&nbsp;</div>
+    <div class="form-group">&nbsp;</div>
+    <div class="form-group">
+        <label for="server_ip" class="col-sm-2 control-label">用户名</label>
+        <div class="col-sm-3">
+            <input type="text" class="form-control" id="user_name" name="server_ip" placeholder="请输入用户名" autofocus>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="server_ip" class="col-sm-2 control-label">邮箱地址</label>
+        <div class="col-sm-3">
+            <input type="text" class="form-control" id="email" name="server_ip" placeholder="请输入邮箱地址" autofocus>
+        </div>
+    </div>
+    <div class="form-group" id="passworddiv">
+        <label for="server_ip" class="col-sm-2 control-label">登录密码</label>
+        <div class="col-sm-3">
+            <input type="password" class="form-control" id="password" name="server_ip" placeholder="请输入登录密码" autofocus>
+        </div>
+    </div>
+     <div class="form-group">
+        <label for="server_ip" class="col-sm-2 control-label">角色</label>
+        <div class="col-sm-4">
+            <div class="form-group"  id="roles" style="margin-left:10px;">
+            <!--<label class="radio-inline">-->
+              <!--<input type="radio"  value="option1" name="sex">男性-->
+            <!--</label>-->
+            <!--<label class="radio-inline">-->
+              <!--<input type="radio"  value="option2" name="sex">女性-->
+            <!--</label>-->
+            <!--<label class="radio-inline">-->
+              <!--<input type="radio"  value="option3" name="sex">中性-->
+            <!--</label>-->
+          </div>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label for="description" class="col-sm-2 control-label">&nbsp;</label>
+        <div class="col-sm-4">
+            <button type="button" class="btn btn-info add_user"><i class="ace-icon fa fa-check bigger-110"></i>保 存</button>
+            <a href="/user/list" class="btn btn-default"><i class="ace-icon fa fa-reply bigger-110"></i>取 消</a>
+        </div>
+    </div>
+</form>
+<script>
+var id=getQueryString("id");
+    if(id!=undefined && id!=""){
+        var url="api/v1/user/detail";
+        var jsondata={
+            "id":id,
+        };
+         var redata = fn_get_ajaxvalue(url, jsondata);
+        if (redata.code = 1000) {
+           $("#email").val(redata.data.user_email);
+           $("#user_name").val(redata.data.user_name);
+           if(redata.data.user_role!=""){
+               $("#inlineCheckbox"+redata.data.user_role).attr("checked","true");
+           }
+           $("#passworddiv").hide();
+        }
+        else {
+            alert(data.msg);
+        }
+    }
+$(document).ready(function () {
+    $(".add_user").click(function(){
+        $(".add_user").attr("disabled",true);
+        if(id!=undefined && id!=""){
+            fn_add_userlist(id);
+        }
+        else{
+            fn_add_userlist("");
+        }
+    });
+    var res =fn_get_roles();
+    console.log(res)
+    if (res != null) {
+        if (res.code == 1000) {
+            var str='';
+            $(res.data).each(function (i,il){
+                str+='<label class="radio-inline"><input type="radio"  value="'+il.permission+'" name="roles" class="role">'+il.role_name+'</label>';
+
+            });
+            $("#roles").append(str);
+        }else{
+            alert('角色获取失败')
+        }
+    }
+
+});
+</script> {% endblock %}

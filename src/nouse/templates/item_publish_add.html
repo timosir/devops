@@ -1,0 +1,174 @@
+{% extends "base.html" %} {% block title %}
+<title>上线申请-荣峰科技</title>
+
+{% endblock%} {% block css_files %}
+<link rel="stylesheet" src="../static/css/chosen.min.css"></link>
+
+<link href="http://g.alicdn.com/sj/qnui/1.5.1/css/sui.min.css" rel="stylesheet">
+<link href="http://g.alicdn.com/sj/qnui/1.5.1/css/sui-append.min.css" rel="stylesheet">
+
+<script src="/static/js/chosen.jquery.min.js"></script>
+<script src="http://g.alicdn.com/sj/qnui/1.5.1/js/sui.min.js"></script> {% endblock %} {% block content%}
+<div class="breadcrumbs" id="breadcrumbs">
+  <script type="text/javascript">
+                        try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+                      </script>
+  <ul class="breadcrumb">
+    <li>
+      <a href="/index">首页</a>
+    </li>
+    <li>
+      <a href="/publish/list">发布列表</a>
+    </li>
+    <li class="active">上线申请</li>
+  </ul>
+</div>
+<div class="sui-steps steps-auto">
+  <div class="wrap">
+    <div class="current">
+      <label><span class="round"><i class="sui-icon icon-pc-right"></i></span><span>第一步 提交上线申请</span></label><i class="triangle-right-bg"></i>
+      <i class="triangle-right"></i>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="todo">
+      <label><span class="round">2</span><span>第二步 测试确认</span></label><i class="triangle-right-bg"></i><i class="triangle-right"></i>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="todo">
+      <label><span class="round">3</span><span>第三步 主管审核</span></label><i class="triangle-right-bg"></i><i class="triangle-right"></i>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="todo">
+      <label><span class="round">4</span><span>第四步 上线完成</span></label>
+    </div>
+  </div>
+</div>
+<form action="#" method="post" class="smm-create-form" autocomplate="off">
+  <div class="item-add">
+    <ul class="smm-create-ul">
+      <li>
+        <label for="">项目名称</label>
+        <select id="s_project"><option value="" required>请选择项目</option></select>
+      </li>
+      <li>
+        <label for="">版本号</label>
+        <select id="s_tag"><option value="" required>请选择要上线的版本</option></select>
+      </li>
+      <li>
+        <label for="">提测内容</label>
+        <textarea name="inputDescription" id="inputDescription" required autofocus></textarea>
+      </li>
+      <li>
+        <input type="button" value="申 请" class="btn btn-info" id="publishadd">
+
+      </li>
+    </ul>
+  </div>
+</form>
+<script>
+var pvid=getQueryString("id");
+$(document).ready(function(){
+ //文本编辑器
+            KindEditor.ready(function (K) {
+                editor2 = K.create('#inputDescription', {
+                    cssPath: '/static/kindeditor/plugins/code/prettify.css',
+                    items: [
+                            'source','plainpaste', '|', 'justifyleft', 'justifycenter', 'justifyright',
+                            'justifyfull', 'fullscreen', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold',
+                            'italic', 'underline', 'emoticons', 'link', 'unlink',
+                    ],
+                    allowFileManager: false,
+                    width: "100%",
+                    height: "460px",
+                    afterCreate: function () {
+                        var self = this;
+                        K.ctrl(document, 13, function () {
+                            self.sync();
+                            K('form[name=example]')[0].submit();
+                        });
+                        K.ctrl(self.edit.doc, 13, function () {
+                            self.sync();
+                            K('form[name=example]')[0].submit();
+                        });
+                    }
+                });
+                prettyPrint();
+            });
+
+            fn_get_project();
+            $("#s_project").change(function(){
+              var lv_project = $("#s_project").val();
+              fn_get_taglist(lv_project);
+              $("#s_tag").chosen({no_results_text: "没有找到结果！",search_contains:true,});
+            });
+      $("#publishadd").click(function(){
+          $("#publishadd").attr("disabled",true);
+          var objname=$("#s_project").val();
+          var tag=$("#s_tag").val();
+          var vinfo=$(window.frames[0].document).find("body").html();
+          var purl="api/v1/publish/add";
+          var jsondata={
+            "project_name":objname,
+            "dever_tag":tag,
+            "project_content":htmlclear(vinfo),
+            "pass":1,
+          };
+          if(pvid!=undefined && pvid!="" ){
+            purl="api/v1/publish/testpass";
+            jsondata={
+              "id":pvid,
+              "s_project":objname,
+              "s_tag":tag,
+              "inputDescription":htmlclear(vinfo),
+              "pass":1,
+            };
+          }
+          var redata = fn_get_ajaxvalue(purl, jsondata);
+            if (redata != null) {
+                if (redata.code == 1000) {
+                    location.href='/publish/list';
+                }
+                else {
+                    alert(redata.msg);
+                }
+            }
+      });
+
+      if(pvid!=undefined && pvid!="" ){
+        var pupdateurl="api/v1/publish/again";
+          var jsondata={
+            "id":pvid,
+          };
+          var redata = fn_get_ajaxvalue(pupdateurl, jsondata);
+            if (redata != null) {
+                if (redata.code == 1000) {
+                  $("#s_project").val(redata.data.project_name);
+                  fn_get_taglist(redata.data.project_name);
+                  $("#inputDescription").val(redata.data.project_context);
+                  $("#s_tag").val(redata.data.dever_tag);
+                }
+                else {
+                    alert(redata.msg);
+                }
+            }
+      }else{
+        var lv_context="<p>Dear All,<br></p>"+
+        "<p>一、本次提测更新的内容：</p>"+
+        "<p><br></p><p><br></p>"+
+        "<p>二、本次提测DB操作：</p>"+
+        "<p><br></p><p><br></p>"+
+        "<p>三、本次提测配置文件新增或者修改：</p>"+
+        "<p><br></p><p><br></p>"+
+	"<p>四、上线客户：</p>"+
+        "<p><br></p><p><br></p>"+
+        "<p><br></p>"+
+        "<p>Thanks &</p>"+
+        "<p>Best Regards</p>";
+        $("#inputDescription").val(lv_context);
+      }
+});
+
+</script> {% endblock %}

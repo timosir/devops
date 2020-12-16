@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>用户登录-运维平台</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href=".">
+    <link href="../static/css/auth_base.css" rel="stylesheet">
+    <link href="../static/css/login.css" rel="stylesheet">
+    <link href="../static/css/auth_detail.css" rel="stylesheet">
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+    <script src="../static/js/jquery-1.12.2.js"></script>
+    <script src="../static/js/index.js"></script>
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+    <div class="top-nav">
+        <div class="top-nav-main clear">
+            <div class="fl" style="margin:0 0 0 -25px">
+                <a class="wide fl" href="#" title="运维平台首页">
+                    <i class="homeicon"></i>
+                    <span>运维平台首页</span>
+                </a>
+            </div>
+
+        </div>
+    </div>
+    </div>
+    <div class="container-fluid content_wrap">
+        <div class="row header">
+            <!--img src="../static/img/logo.png" alt="荣峰科技"-->
+        </div>
+        <div class=" body">
+            <div class="body-login">
+                
+                    <div class="body_header">登 录</div>
+                    <div class="first">
+                        <div class="line">
+                            <i class="user_icon icon_base"></i>
+                            <input type="email" name="inputEmail" id="inputEmail" class="form-control" placeholder="用户名/邮箱" required autofocus>
+                        </div>
+                        <div class="line">
+                            <!--li> <img src="../static/img/account.png"></li-->
+                            <i class="pass_icon icon_base"></i>
+                            <input type="password" name="inputPassword" id="inputPassword" class="form-control" placeholder="密码" required autofocus>
+                        </div>
+                        <div class="info error">
+                            <!--span class="register"><a href="register" class="btn-register">注册</a></span-->
+                        </div>
+                        <div class="line">
+                            <button id="btnlogin" class="btn btn-lg btn-primary btn-block" type="button">登 录</button>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="backgound_img"></div>
+    <script>
+ $(document).ready(function () {
+     document.onkeydown=function(e){
+         if(!e) e=window.event;
+         if((e.keyCode || e.which)==13){
+             $("#btnlogin").click();
+         }
+     }
+     $("#inputEmail").change(function(){
+        $(".info").html("");
+     });
+     $("#inputPassword").change(function(){
+        $(".info").html("");
+     });
+     $("#btnlogin").click(function(){
+         if($("#inputEmail").val()==""){
+             $(".info").html("<span class='glyphicon glyphicon-remove'></span> 请输入用户名");
+             return;
+         }
+         if($("#inputPassword").val()==""){
+             $(".info").html("<span class='glyphicon glyphicon-remove'></span> 请输入密码");
+             return;
+         }
+         
+        $.ajax({//判断邮件地址是否存在
+            type: 'post',
+            url: 'api/v1/user/login',
+            data: {
+                "inputEmail": $("#inputEmail").val(),
+				"inputPassword":$("#inputPassword").val(),
+            },
+            cache: 'false',
+            dataType: 'json',
+            success: function (data) {
+				if(data.code==1000){
+					location.href="/";
+				}
+				else{
+                    $(".info").html("<span class='glyphicon glyphicon-remove'></span> "+data.msg);
+				}
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                $(".info").html(errorThrown);
+            }
+        });
+    });
+});
+</script>
+</body>
+
+</html>
