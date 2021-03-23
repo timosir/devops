@@ -1,0 +1,71 @@
+@api.route('/api/v1/user/logout')
+def logout():
+    session.pop('user', None)
+    return redirect(url_for('login'))
+    #coding:utf8
+from   flask_sqlalchemy import  SQLAlchemy
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import UserMixin
+import  datetime
+
+from sqlalchemy.orm import backref, relationship
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Table, Column, Integer, String, DateTime, ForeignKey, UniqueConstraint
+
+db = SQLAlchemy()
+
+'''
+Base = declarative_base()
+
+# 用户-角色-关联
+user_role_map = Table('user_role', Base.metadata,
+    Column('urid', Integer, primary_key=True, autoincrement=True, comment='主键ID'),
+    Column('user_id', Integer, ForeignKey('users.user_id'), nullable=False, comment='用户ID'),
+    Column('role_id', Integer, ForeignKey('roles.role_id'), nullable=False, comment='角色ID'),
+    UniqueConstraint('user_id', 'role_id')
+)
+
+# 角色-权限-关联
+role_permission_map = Table('Roleper', Base.metadata,
+    Column('urid', Integer, primary_key=True, autoincrement=True, comment='主键ID'),
+    Column('role_id', Integer, ForeignKey('roles.role_id'), nullable=False, comment='角色ID'),
+    Column('permission_id', Integer, ForeignKey('permissions.permission_id'), nullable=False, comment='权限ID'),
+    UniqueConstraint('role_id', 'permission_id')
+)'''
+
+class User(UserMixin, db.Model):
+    __tablename__ = 'users'
+    id = db.Column(db.Integer,primary_key=True)
+    name = db.Column(db.String(64), unique=True, index=True)
+    username = db.Column(db.String(64), unique=False, index=True)
+    password_hash = db.Column(db.String(128))
+    role_id = db.Column(db.Integer)
+    ipaddress = db.Column(db.String(200), index=True)
+    logintime = db.Column(db.DateTime)
+    user_id = db.Column(db.String(255))
+    # config_content = config[os.getenv('FLASK_CONFIG') or 'default']
+
+    '''roles = relationship('Role',
+                         secondary=user_role_map,
+                         backref=backref('users', lazy='dynamic'),
+                         lazy='dynamic'
+                         )'''
+
+
+    def __repr__(self):
+        return '<User %r %r %r %r %r %r>' % (self.name,self.username,self.ipaddress,self.logintime,self.user_id,self.role_id)
+
+class Role(db.Model):
+    __tablename__ = 'roles'
+    id = db.Column(db.Integer, primary_key=True)
+    role_name = db.Column(db.String(50), unique=True)
+    permission = db.Column(db.Integer)
+
+    '''permissions = relationship('Roleper',
+                               secondary=role_permission_map,
+                               backref=backref('roles', lazy='dynamic'),
+                               lazy='dynamic'
+                               )'''
+
+    def __repr__(self):
+        return '<Role %r>' % self.role_name
