@@ -1,0 +1,42 @@
+
+@api.route('/api/v1/user/add',methods=['POST'])
+@requires_auths(['/api/v1/user/add'])
+def adduser():
+    try:
+        _name = request.form['inputName']
+        _username  = request.form['inputEmail']
+        _password = request.form['inputPassword']
+        _role = request.form['imputRoleid']
+        ret=random_ids()
+        addu = User(name=_name,username=_username, password_hash=generate_password_hash(_password),user_id=ret,role_id=_role)
+        db.session.add(addu)
+        addus = Userrole(user_id=ret,role_id=_role)
+        db.session.add(addus)
+        db.session.commit()
+        if addus:
+            return custom_response(1000, '添加成功', '')
+        else:
+            return  custom_response(1001,'添加失败','')
+    except Exception as e:
+        return   custom_response(1001,'请求异常'+str(e),'')
+
+
+
+@api.route('/api/v1/user/list',methods=['GET'])
+@requires_auths(['/api/v1/user/list'])
+def userlist():
+    try:
+        userlist= db.session.query(User.id, User.name, User.username, Role.role_name).join(Role, Role.permission == User.role_id).all()
+        data_dict=[]
+        for projectlist in  userlist:
+            data = {
+                "id": str(projectlist.id),
+                "name": str(projectlist.name),
+                "username": str(projectlist.username),
+                "role":str(projectlist.role_name)
+                }
+            data_dict.append(data)
+
+        return  custom_response(1000,'',data_dict)
+    except Exception as e :
+        return custom_response(1001,'请求异常'+str(e),'')
