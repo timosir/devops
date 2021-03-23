@@ -1,0 +1,106 @@
+
+@api.route('/api/v1/role/list', methods=['GET'])
+@requires_auths(['/api/v1/role/list'])
+def rolelist():
+    try:
+        rolelists = Role.query.all()
+        data_dict = []
+        for projectlist in rolelists:
+            data = {
+
+                "role_name": str(projectlist.role_name),
+                "permission":projectlist.permission
+                }
+            data_dict.append(data)
+
+        return custom_response(1000, '', data_dict)
+    except Exception as e:
+        return custom_response("1001", "请求异常" + str(e), "")
+
+@api.route('/api/v1/role/rolepermisson', methods=['GET'])
+@requires_auths(['/api/v1/role/rolepermisson'])
+def rolepermission():
+    try:
+
+        all  = Roleper.query.all()
+        data_dict=[]
+        for projectlist in all:
+            data = {
+                "permission_id": str(projectlist.permission_id),
+                "permission": str(projectlist.permission),
+                "permission_desc": str(projectlist.permission_desc),
+                "content": str(projectlist.content),
+                "types": projectlist.types
+
+            }
+            data_dict.append(data)
+        return custom_response(1000, '', data_dict)
+    except Exception as e:
+        return custom_response(1001, "请求异常" + str(e), "")
+
+@api.route('/api/v1/role/rolepersrelation', methods=['GET'])
+@requires_auths(['/api/v1/role/rolepersrelation'])
+
+def rolepersrelation():
+    try:
+        _role_id = request.values.get('roles')
+        query = db.session().query(Roleper,RolePermission)
+        userlist = query.join(RolePermission, RolePermission.permission_id == Roleper.permission_id).filter(RolePermission.role_id == _role_id).all()
+        data_dict=[]
+        for projectlist in userlist:
+            data ={
+                "permission_id": str(projectlist.Roleper.permission_id),
+                "permission": str(projectlist.Roleper.permission),
+                "permission_desc": str(projectlist.Roleper.permission_desc),
+                "content": str(projectlist.Roleper.content),
+                "types": projectlist.Roleper.types,
+                "checked":projectlist.RolePermission.checked,
+                "id": projectlist.RolePermission.id
+
+            }
+
+            data_dict.append(data)
+
+        return custom_response(1000, '', data_dict)
+    except Exception as e:
+        return custom_response(1001, "请求异常" + str(e), "")
+
+
+
+@api.route('/api/v1/role/rolepersrelationadd', methods=['POST'])
+@requires_auths(['/api/v1/role/rolepersrelationadd'])
+def rolepersrelationadd():
+    try:
+
+        data = json.loads(request.get_data(as_text=True).encode('utf-8'))
+        a= data['permission']
+
+        for i in a :
+            updatepos = RolePermission.query.filter_by(id=i['id']).update({'checked': i['checked']})
+            db.session.commit()
+            db.session.close()
+
+        if updatepos:
+            return custom_response(1000, '提交成功', '')
+        else:
+            return custom_response(1001, '提交失败', '')
+
+        return custom_response(1000, '提交成功', '')
+    except Exception as e:
+        return custom_response(1001, "请求异常" + str(e), "")
+
+@api.route('/api/v1/role/userrole', methods=['GET'])
+@requires_auths(['/api/v1/role/userrole'])
+def userrole():
+    try:
+        roleper = Userrole.query.all()
+        data_dict = []
+        for projectlist in roleper:
+            data = {
+                "user_id": str(projectlist.user_id),
+                "role_id": str(projectlist.role_id)
+            }
+            data_dict.append(data)
+        return custom_response(1000, '', data_dict)
+    except Exception as e:
+        return custom_response("1001", "请求异常" + str(e), "")
