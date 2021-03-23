@@ -1,0 +1,43 @@
+838165
+@api.route('/api/v1/user/login',methods=['POST'])
+def login():
+    try:
+        _username = request.form['inputEmail']
+        _password = request.form['inputPassword']
+        user = User.query.filter_by(username=_username).all()
+        if  user :
+                hash=User.query.with_entities(User.password_hash).filter_by(username=_username).all()
+                for i in hash:
+                     hashpwd=str(i.password_hash)
+                if  check_password_hash(hashpwd,_password):
+                    names = User.query.filter_by(username=_username).all()
+                    for projectlist in names:
+                        data = {
+                            "id": str(projectlist.id),
+                            "name": str(projectlist.name),
+                            "username": str(projectlist.username),
+                            "user_id":str(projectlist.user_id)
+                        }
+
+                    session['user']=data['name']
+                    session['id'] = data['id']
+                    session['user_id'] = data['user_id']
+                    if request.headers.getlist("X-Forwarded-For"):
+                        client_ip = request.headers.getlist("X-Forwarded-For")[0]
+                    else:
+                        client_ip = request.remote_addr
+                    updatepo = User.query.filter_by(username=_username).update({'ipaddress': client_ip, 'logintime': time.strftime('%Y-%m-%d %H:%M:%S')})
+                    db.session.commit()
+                    db.session.close()
+                    if updatepo:
+                        return custom_response(1000,'登录成功','')
+                    else:
+                        return custom_response(1001,'登录失败','')
+
+                else:
+                    return custom_response(1001,'密码错误','')
+
+        else:
+            return  custom_response(1001,'用户不存在','')
+    except Exception as e:
+        return  custom_response(1001,'请求错误'+str(e),'')
